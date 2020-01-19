@@ -63,6 +63,7 @@
     "@types/googlemaps": "3.30.18",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.7",
+    "husky": "^4.0.10",
     "typescript": "3.3.3333"
   }
 }
