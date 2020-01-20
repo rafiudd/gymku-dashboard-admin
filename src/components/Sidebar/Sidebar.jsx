@@ -81,7 +81,7 @@ class Sidebar extends React.Component {
   // creates the links that appear in the left menu / Sidebar
   createLinks = routes => {
     return routes.map((prop, key) => {
-      if(prop.layout === "/auth") {
+      if(prop.layout === "/auth" || prop.layout === "/users") {
         return null
       } else {
         return (
@@ -131,7 +131,7 @@ class Sidebar extends React.Component {
           </button>
           {/* Brand */}
           {logo ? (
-            <NavbarBrand className="pt-0" {...navbarBrandProps}>
+            <NavbarBrand className="pt-2" {...navbarBrandProps}>
               <img
                 alt={logo.imgAlt}
                 className="navbar-brand-img"

@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-
+import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -31,123 +31,114 @@ import {
   Col
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.jsx";
+import UserHeader from "components/Headers/Header.jsx";
+import Axios from "axios";
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username : '',
+      email : '',
+      fullname : '',
+      password : '',
+      address : '',
+      phone : '',
+      gender : '',
+      title : '',
+      type : '',
+      trainer_name : '',
+      time_type : '',
+      time_start : '',
+      time_end : ''
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.register = this.register.bind(this);
+  }
+
+  handleInputChange = (event) => {
+    let key = event.target.name;
+    let value = event.target.value;
+    let model = {
+      [key] : value,
+    }
+
+    this.setState(model)
+  }
+
+  async register() {
+    let newModel = {
+      username : this.state.username,
+      email : this.state.email,
+      fullname : this.state.fullname,
+      password : this.state.password,
+      address : this.state.password,
+      phone : this.state.phone,
+      gender : this.state.gender,
+      gym_class : {
+        title : this.state.title,
+        type : this.state.type,
+        trainer_name : this.state.trainer_name,
+        time_type : this.state.time_type,
+        time_start : this.state.time_start,
+        time_end : this.state.time_end
+      }
+    }
+
+    // alert(JSON.stringify(newModel))
+
+    let token = window.localStorage.getItem('token');
+    const baseUrl = "http://34.238.41.114:8081/api/users/register";
+    const headers = {
+      'Authorization' : 'Bearer ' + token
+    }
+
+    try {
+      alert('sukses')
+      let query = await fetch(baseUrl, {
+        method : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization' : 'Bearer ' + token
+        },
+        body: JSON.stringify(newModel)
+      });
+      alert('Sukses Register User');
+      window.location.reload();
+
+      // console.log(query);
+      // alert(query);
+      // window.localStorage.setItem('query', query)
+      // return query
+    } catch (error) {
+      alert(error.message)  
+      // window.localStorage.setItem('error', error)
+      // return error
+    }
+    
+  }
+
   render() {
     return (
       <>
         <UserHeader />
         {/* Page content */}
-        <Container className="mt--7" fluid>
+        <Container className="mt--8" fluid>
           <Row>
-            <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
-              <Card className="card-profile shadow">
-                <Row className="justify-content-center">
-                  <Col className="order-lg-2" lg="3">
-                    <div className="card-profile-image">
-                      <a href="#pablo" onClick={e => e.preventDefault()}>
-                        <img
-                          alt="..."
-                          className="rounded-circle"
-                          src={require("assets/img/theme/team-4-800x800.jpg")}
-                        />
-                      </a>
-                    </div>
-                  </Col>
-                </Row>
-                <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                  <div className="d-flex justify-content-between">
-                    <Button
-                      className="mr-4"
-                      color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Connect
-                    </Button>
-                    <Button
-                      className="float-right"
-                      color="default"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Message
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardBody className="pt-0 pt-md-4">
-                  <Row>
-                    <div className="col">
-                      <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                        <div>
-                          <span className="heading">22</span>
-                          <span className="description">Friends</span>
-                        </div>
-                        <div>
-                          <span className="heading">10</span>
-                          <span className="description">Photos</span>
-                        </div>
-                        <div>
-                          <span className="heading">89</span>
-                          <span className="description">Comments</span>
-                        </div>
-                      </div>
-                    </div>
-                  </Row>
-                  <div className="text-center">
-                    <h3>
-                      Jessica Jones
-                      <span className="font-weight-light">, 27</span>
-                    </h3>
-                    <div className="h5 font-weight-300">
-                      <i className="ni location_pin mr-2" />
-                      Bucharest, Romania
-                    </div>
-                    <div className="h5 mt-4">
-                      <i className="ni business_briefcase-24 mr-2" />
-                      Solution Manager - Creative Tim Officer
-                    </div>
-                    <div>
-                      <i className="ni education_hat mr-2" />
-                      University of Computer Science
-                    </div>
-                    <hr className="my-4" />
-                    <p>
-                      Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                      Nick Murphy — writes, performs and records all of his own
-                      music.
-                    </p>
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
-                      Show more
-                    </a>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col className="order-xl-1" xl="8">
+          <Form role="form">
+
+            <Col className="order-xl-1" xl="12">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">
                     <Col xs="8">
-                      <h3 className="mb-0">My account</h3>
-                    </Col>
-                    <Col className="text-right" xs="4">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        Settings
-                      </Button>
+                      <h3 className="mb-0">Daftarkan Pengguna Baru</h3>
                     </Col>
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  <Form>
                     <h6 className="heading-small text-muted mb-4">
                       User information
                     </h6>
@@ -163,10 +154,10 @@ class Profile extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="lucky.jesse"
-                              id="input-username"
                               placeholder="Username"
                               type="text"
+                              name="username"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -180,9 +171,10 @@ class Profile extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              id="input-email"
                               placeholder="jesse@example.com"
                               type="email"
+                              name="email"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -194,14 +186,14 @@ class Profile extends React.Component {
                               className="form-control-label"
                               htmlFor="input-first-name"
                             >
-                              First name
+                              Full Name
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="Lucky"
-                              id="input-first-name"
                               placeholder="First name"
                               type="text"
+                              name="fullname"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -209,16 +201,17 @@ class Profile extends React.Component {
                           <FormGroup>
                             <label
                               className="form-control-label"
-                              htmlFor="input-last-name"
+                              htmlFor="input-first-name"
                             >
-                              Last name
+                             Password
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="Jesse"
-                              id="input-last-name"
-                              placeholder="Last name"
-                              type="text"
+                              id="input-first-name"
+                              placeholder="First name"
+                              type="password"
+                              name="password"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -227,7 +220,7 @@ class Profile extends React.Component {
                     <hr className="my-4" />
                     {/* Address */}
                     <h6 className="heading-small text-muted mb-4">
-                      Contact information
+                      Other information
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
@@ -241,10 +234,10 @@ class Profile extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                              id="input-address"
+                              rows="4"
                               placeholder="Home Address"
-                              type="text"
+                              type="textarea"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -256,14 +249,14 @@ class Profile extends React.Component {
                               className="form-control-label"
                               htmlFor="input-city"
                             >
-                              City
+                              Phone
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="New York"
-                              id="input-city"
-                              placeholder="City"
+                              placeholder="+62xxxxxxxxxx"
                               type="text"
+                              name="phone"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -271,32 +264,16 @@ class Profile extends React.Component {
                           <FormGroup>
                             <label
                               className="form-control-label"
-                              htmlFor="input-country"
+                              htmlFor="input-city"
                             >
-                              Country
+                              Gender
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="United States"
-                              id="input-country"
-                              placeholder="Country"
+                              placeholder="Perempuan"
                               type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Postal code
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-postal-code"
-                              placeholder="Postal code"
-                              type="number"
+                              name="gender"
+                              onChange={this.handleInputChange}
                             />
                           </FormGroup>
                         </Col>
@@ -304,24 +281,121 @@ class Profile extends React.Component {
                     </div>
                     <hr className="my-4" />
                     {/* Description */}
-                    <h6 className="heading-small text-muted mb-4">About me</h6>
+                    <h6 className="heading-small text-muted mb-4">Gym Information</h6>
                     <div className="pl-lg-4">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="A few words about you ..."
-                          rows="4"
-                          defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                          type="textarea"
-                        />
-                      </FormGroup>
+                      <Row>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Gym Class
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="Atletik"
+                              type="text"
+                              name="title"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Gym Type
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="Personal"
+                              type="text"
+                              name="type"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Trainer Name
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="Najib Gans"
+                              type="text"
+                              name="trainer_name"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Time Type
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="Weekends"
+                              type="text"
+                              name="time_type"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Time Start
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="09.00"
+                              type="text"
+                              name="time_start"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg="4">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-city"
+                            >
+                              Time End
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              placeholder="15.00"
+                              type="text"
+                              name="time_end"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
                     </div>
-                  </Form>
+                    <div className="mt-3"></div>
+                    <Button lg="6" color="primary" type="button" onClick={this.register}>Daftar</Button>                      
                 </CardBody>
               </Card>
             </Col>
+            </Form>
           </Row>
         </Container>
       </>

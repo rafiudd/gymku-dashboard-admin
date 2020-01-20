@@ -22,6 +22,7 @@ import Register from "views/examples/Register.jsx";
 import Login from "views/examples/Login.jsx";
 import Tables from "views/examples/Tables.jsx";
 import Icons from "views/examples/Icons.jsx";
+import UserDetail from "views/examples/UserDetail.jsx"
 
 var routes = [
   {
@@ -38,19 +39,25 @@ var routes = [
     component: Tables,
     layout: "/admin"
   },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: Profile,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/create",
+    name: "Create User",
+    icon: "ni ni-single-02 text-yellow",
+    component: Profile,
+    layout: "/admin"
+  },
   {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth"
+  },
+  {
+    path: "/detail",
+    name: "User Detail",
+    component: UserDetail,
+    layout: "/users"
   }
 ];
 export default routes;

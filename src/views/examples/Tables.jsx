@@ -39,8 +39,37 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.jsx";
+import Axios from "axios";
 
 class Tables extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      list: []
+    }
+
+  }
+
+  async componentDidMount() {
+    let token = window.localStorage.getItem('token');
+
+    await Axios.get('http://34.238.41.114:8081/api/users/all?page=0&limit=10', {
+      headers: {
+        Authorization : 'Bearer ' + token
+      }
+    }).then(response => {
+      if(!response) {
+        alert('Server Sedang Bermasalah')
+      }
+      this.setState({list : response.data.data})
+    });
+    
+  }
+
+  check() {
+    alert(JSON.stringify(this.state))
+  }
+
   render() {
     return (
       <>
@@ -65,41 +94,19 @@ class Tables extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="text-sm"><a href="#" target="_blank" rel="noopener noreferrer">Rayhan Rafiud Darojat</a></td>
-                      <td>rayhanrafiudd@gmail.com</td>
-                      <td>088983210303</td>
-                      <td>Laki Laki</td>
-                      <td>Atletik</td>                      
-                    </tr>
-                    <tr>
-                      <td className="text-sm"><a href="#" target="_blank" rel="noopener noreferrer">Rayhan Rafiud Darojat</a></td>
-                      <td>rayhanrafiudd@gmail.com</td>
-                      <td>088983210303</td>
-                      <td>Laki Laki</td>
-                      <td>Atletik</td>                      
-                    </tr>
-                    <tr>
-                      <td className="text-sm"><a href="#" target="_blank" rel="noopener noreferrer">Rayhan Rafiud Darojat</a></td>
-                      <td>rayhanrafiudd@gmail.com</td>
-                      <td>088983210303</td>
-                      <td>Laki Laki</td>
-                      <td>Atletik</td>                      
-                    </tr>
-                    <tr>
-                      <td className="text-sm"><a href="#" target="_blank" rel="noopener noreferrer">Rayhan Rafiud Darojat</a></td>
-                      <td>rayhanrafiudd@gmail.com</td>
-                      <td>088983210303</td>
-                      <td>Laki Laki</td>
-                      <td>Atletik</td>                      
-                    </tr>
-                    <tr>
-                      <td className="text-sm"><a href="#" target="_blank" rel="noopener noreferrer">Rayhan Rafiud Darojat</a></td>
-                      <td>rayhanrafiudd@gmail.com</td>
-                      <td>088983210303</td>
-                      <td>Laki Laki</td>
-                      <td>Atletik</td>                      
-                    </tr>
+                  {this.state.list.map((item,key) => {
+                    return (
+                      <>
+                        <tr>
+                          <td className="text-sm"><a href={"/users/detail/" + item.id}>{item.fullname}</a></td>
+                          <td>{item.email}</td>
+                          <td>{item.phone}</td>
+                          <td>{item.gender}</td>
+                          <td>{item.gym_class.title}</td>     
+                        </tr>
+                      </>
+                      );
+                    })}    
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
