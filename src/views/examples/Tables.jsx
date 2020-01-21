@@ -98,7 +98,7 @@ class Tables extends React.Component {
                     return (
                       <>
                         <tr>
-                          <td className="text-sm"><a href={"/users/detail/" + item.id}>{item.fullname}</a></td>
+                          <td className="text-sm"><a href={"/admin/detail/" + item.id}>{item.fullname}</a></td>
                           <td>{item.email}</td>
                           <td>{item.phone}</td>
                           <td>{item.gender}</td>
