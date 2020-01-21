@@ -127,275 +127,275 @@ class Profile extends React.Component {
         {/* Page content */}
         <Container className="mt--8" fluid>
           <Row>
-          <Form role="form">
 
             <Col className="order-xl-1" xl="12">
-              <Card className="bg-secondary shadow">
-                <CardHeader className="bg-white border-0">
-                  <Row className="align-items-center">
-                    <Col xs="8">
-                      <h3 className="mb-0">Daftarkan Pengguna Baru</h3>
-                    </Col>
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                    <h6 className="heading-small text-muted mb-4">
-                      User information
-                    </h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-username"
-                            >
-                              Username
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Username"
-                              type="text"
-                              name="username"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-email"
-                            >
-                              Email address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="jesse@example.com"
-                              type="email"
-                              name="email"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-first-name"
-                            >
-                              Full Name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="First name"
-                              type="text"
-                              name="fullname"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="6">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-first-name"
-                            >
-                             Password
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-first-name"
-                              placeholder="First name"
-                              type="password"
-                              name="password"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </div>
-                    <hr className="my-4" />
-                    {/* Address */}
-                    <h6 className="heading-small text-muted mb-4">
-                      Other information
-                    </h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-address"
-                            >
-                              Address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              rows="4"
-                              placeholder="Home Address"
-                              type="textarea"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Phone
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="+62xxxxxxxxxx"
-                              type="text"
-                              name="phone"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Gender
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Perempuan"
-                              type="text"
-                              name="gender"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </div>
-                    <hr className="my-4" />
-                    {/* Description */}
-                    <h6 className="heading-small text-muted mb-4">Gym Information</h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Gym Class
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Atletik"
-                              type="text"
-                              name="title"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Gym Type
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Personal"
-                              type="text"
-                              name="type"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Trainer Name
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Najib Gans"
-                              type="text"
-                              name="trainer_name"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Time Type
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="Weekends"
-                              type="text"
-                              name="time_type"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Time Start
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="09.00"
-                              type="text"
-                              name="time_start"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              Time End
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              placeholder="15.00"
-                              type="text"
-                              name="time_end"
-                              onChange={this.handleInputChange}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </div>
-                    <div className="mt-3"></div>
-                    <Button lg="6" color="primary" type="button" onClick={this.register}>Daftar</Button>                      
-                </CardBody>
-              </Card>
+              <Form role="form">
+                <Card className="bg-secondary shadow">
+                  <CardHeader className="bg-white border-0">
+                    <Row className="align-items-center">
+                      <Col xs="8">
+                        <h3 className="mb-0">Daftarkan Pengguna Baru</h3>
+                      </Col>
+                    </Row>
+                  </CardHeader>
+                  <CardBody>
+                      <h6 className="heading-small text-muted mb-4">
+                        User information
+                      </h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-username"
+                              >
+                                Username
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Username"
+                                type="text"
+                                name="username"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-email"
+                              >
+                                Email address
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="jesse@example.com"
+                                type="email"
+                                name="email"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-first-name"
+                              >
+                                Full Name
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="First name"
+                                type="text"
+                                name="fullname"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-first-name"
+                              >
+                              Password
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                id="input-first-name"
+                                placeholder="First name"
+                                type="password"
+                                name="password"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="my-4" />
+                      {/* Address */}
+                      <h6 className="heading-small text-muted mb-4">
+                        Other information
+                      </h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col md="12">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-address"
+                              >
+                                Address
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                rows="4"
+                                placeholder="Home Address"
+                                type="textarea"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Phone
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="+62xxxxxxxxxx"
+                                type="text"
+                                name="phone"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gender
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Perempuan"
+                                type="text"
+                                name="gender"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="my-4" />
+                      {/* Description */}
+                      <h6 className="heading-small text-muted mb-4">Gym Information</h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gym Class
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Atletik"
+                                type="text"
+                                name="title"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gym Type
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Personal"
+                                type="text"
+                                name="type"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Trainer Name
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Najib Gans"
+                                type="text"
+                                name="trainer_name"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time Type
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="Weekends"
+                                type="text"
+                                name="time_type"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time Start
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="09.00"
+                                type="text"
+                                name="time_start"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time End
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                placeholder="15.00"
+                                type="text"
+                                name="time_end"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <div className="mt-3"></div>
+                      <Button lg="6" color="primary" type="button" onClick={this.register}>Daftar</Button>                      
+                  </CardBody>
+                </Card>
+              </Form>
             </Col>
-            </Form>
           </Row>
         </Container>
       </>
