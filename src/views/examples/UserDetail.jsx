@@ -72,7 +72,7 @@ class UserDetail extends React.Component {
     }
 
     let getUrlNow = window.location.href;
-    let userId = getUrlNow.slice(37,59)
+    let userId = getUrlNow.slice(37,61)
     
     await Axios.get(baseUrl + userId, {
       headers : headers
@@ -100,7 +100,7 @@ class UserDetail extends React.Component {
     }
 
     let getUrlNow = window.location.href;
-    let userId = getUrlNow.slice(37,59);
+    let userId = getUrlNow.slice(37,61);
 
     await Axios.delete(baseUrl + userId, {
       headers : headers
