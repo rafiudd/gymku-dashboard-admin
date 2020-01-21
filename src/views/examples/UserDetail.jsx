@@ -16,8 +16,8 @@
 
 */
 import React from "react";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
+
 // reactstrap components
 import {
   Button,
@@ -27,26 +27,30 @@ import {
   FormGroup,
   Form,
   Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
+  Container,
   Row,
   Col
 } from "reactstrap";
+// core components
 import UserHeader from "components/Headers/Header.jsx";
-
+import Axios from "axios";
 
 class UserDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      email : '',
-      password : '',
-      isLogin : false,
-      login : false
+      data : [],
+      gym_class : {},
+      title : '',
+      type : '',
+      trainer_name : '',
+      time_type : '',
+      time_start : '',
+      time_end : ''
     }
-    this.login = this.login.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this)
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    // this.register = this.register.bind(this);
   }
 
   handleInputChange = (event) => {
@@ -54,87 +58,405 @@ class UserDetail extends React.Component {
     let value = event.target.value;
     let model = {
       [key] : value,
-      "isLogin" : true
     }
 
     this.setState(model)
+  }
 
-  }
-  
-  login = (e) => {
-    const baseUrl = "http://34.238.41.114:8081/api";
-    
-    axios.post(baseUrl + "/users/login", this.state)
-    .then(function (response) {
-      console.log(response.data)
-      if(response.data.code === 200) {
-        window.localStorage.setItem('isLogin', true)
-        window.localStorage.setItem('token', response.data.token)
-      } else {
-        alert("GAGAL LOGIN")
-      }
-    }).then(this.setState({ login : true}))
-  }
-  
-  moveLogin(){
-    this.props.history.push("/admin/index");
-  }
-  render() {
-    if( this.state.login === true ) {
-      return <Redirect to='/admin/index' />
+  async componentWillMount() {
+    let token = window.localStorage.getItem('token');
+
+    const baseUrl = "http://34.238.41.114:8081/api/users?id=";
+    const headers = {
+      'Authorization' : 'Bearer ' + token
     }
+
+    let getUrlNow = window.location.href;
+    let userId = getUrlNow.slice(35,59)
+    
+    await Axios.get(baseUrl + userId, {
+      headers : headers
+    }).then(response => {
+      let model = {
+        title : response.data.data.gym_class.title,
+        type : response.data.data.gym_class.type,
+        trainer_name : response.data.data.gym_class.trainer_name,
+        time_type : response.data.data.gym_class.time_type,
+        time_start : response.data.data.gym_class.time_start,
+        time_end : response.data.data.gym_class.time_end
+      }
+      this.setState({ data : response.data.data });
+      this.setState({ gym_class : model })
+    })
+    console.log(this.state)
+  }
+
+  async delete () {
+    let token = window.localStorage.getItem('token');
+
+    const baseUrl = "http://34.238.41.114:8081/api/users/delete?id=";
+    const headers = {
+      'Authorization' : 'Bearer ' + token
+    }
+
+    let getUrlNow = window.location.href;
+    let userId = getUrlNow.slice(35,59);
+
+    await Axios.delete(baseUrl + userId, {
+      headers : headers
+    }).then(response => {
+      alert('Sukses Hapus User')
+      // window.location = "http://www.yoururl.com";
+      document.location = '/admin/tables'
+      return <Redirect to='/admin/tables' />
+    })
+  }
+
+  // async register() {
+  //   let newModel = {
+  //     username : this.state.username,
+  //     email : this.state.email,
+  //     fullname : this.state.fullname,
+  //     password : this.state.password,
+  //     address : this.state.password,
+  //     phone : this.state.phone,
+  //     gender : this.state.gender,
+  //     gym_class : {
+  //       title : this.state.title,
+  //       type : this.state.type,
+  //       trainer_name : this.state.trainer_name,
+  //       time_type : this.state.time_type,
+  //       time_start : this.state.time_start,
+  //       time_end : this.state.time_end
+  //     }
+  //   }
+
+  //   // alert(JSON.stringify(newModel))
+
+  //   let token = window.localStorage.getItem('token');
+  //   const baseUrl = "http://34.238.41.114:8081/api/users/register";
+  //   const headers = {
+  //     'Authorization' : 'Bearer ' + token
+  //   }
+
+  //   try {
+  //     alert('sukses')
+  //     let query = await fetch(baseUrl, {
+  //       method : 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //         'Authorization' : 'Bearer ' + token
+  //       },
+  //       body: JSON.stringify(newModel)
+  //     });
+  //     alert('Sukses Register User');
+  //     window.location.reload();
+
+  //     // console.log(query);
+  //     // alert(query);
+  //     // window.localStorage.setItem('query', query)
+  //     // return query
+  //   } catch (error) {
+  //     alert(error.message)  
+  //     // window.localStorage.setItem('error', error)
+  //     // return error
+  //   }
+    
+  // }
+
+  render() {
     return (
       <>
         <UserHeader />
-        <Col lg="5" md="7">
-          <Card className="bg-secondary shadow border-0">
-            <CardBody className="px-lg-5 py-lg-5">
-              <div className="text-center text-muted mb-4">
-                <h1>Login</h1>
-              </div>
-              <Form role="form" onSubmit={this.login}>
-                <FormGroup className="mb-3">
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText onChange={this.handleInputChange}>
-                        <i className="ni ni-email-83" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Email" type="email" name="email" onChange={this.handleInputChange} />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText onChange={this.handleInputChange}>
-                        <i className="ni ni-lock-circle-open" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Password" type="password" name="password" onChange={this.handleInputChange} />
-                  </InputGroup>
-                </FormGroup>
-                <div className="custom-control custom-control-alternative custom-checkbox">
-                  <input
-                    className="custom-control-input"
-                    id=" customCheckLogin"
-                    type="checkbox"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor=" customCheckLogin"
-                  >
-                    <span className="text-muted">Remember me</span>
-                  </label>
-                </div>
-                <div className="text-center">
-                  <Button className="my-4" color="primary" type="submit">
-                    Sign in
-                  </Button>
-                </div>
+        {/* Page content */}
+        <Container className="mt--8" fluid>
+          <Row>
+
+            <Col className="order-xl-1" xl="12">
+              <Form role="form">
+                <Card className="bg-secondary shadow">
+                  <CardHeader className="bg-white border-0">
+                    <Row className="align-items-center">
+                      <Col xs="8">
+                        <h3 className="mb-0">Edit User</h3>
+                      </Col>
+                    </Row>
+                  </CardHeader>
+                  <CardBody>
+                      <h6 className="heading-small text-muted mb-4">
+                        User information
+                      </h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-username"
+                              >
+                                Username
+                              </label>
+                              <Input
+                                defaultValue={JSON.stringify(this.state.data.username)}
+                                className="form-control-alternative"
+                                placeholder="Username"
+                                type="text"
+                                name="username"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-email"
+                              >
+                                Email address
+                              </label>
+                              <Input
+                                defaultValue={this.state.data.email}
+                                className="form-control-alternative"
+                                placeholder="jesse@example.com"
+                                type="email"
+                                name="email"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-first-name"
+                              >
+                                Full Name
+                              </label>
+                              <Input
+                                defaultValue={this.state.data.fullname}
+                                className="form-control-alternative"
+                                placeholder="First name"
+                                type="text"
+                                name="fullname"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="6">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-first-name"
+                              >
+                              Password
+                              </label>
+                              <Input
+                                defaultValue={JSON.stringify(this.state.data.password)}
+                                className="form-control-alternative"
+                                id="input-first-name"
+                                placeholder="First name"
+                                type="password"
+                                name="password"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="my-4" />
+                      {/* Address */}
+                      <h6 className="heading-small text-muted mb-4">
+                        Other information
+                      </h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col md="12">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-address"
+                              >
+                                Address
+                              </label>
+                              <Input
+                                defaultValue={JSON.stringify(this.state.data.address)}
+                                className="form-control-alternative"
+                                rows="4"
+                                placeholder="Home Address"
+                                type="textarea"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Phone
+                              </label>
+                              <Input
+                                defaultValue={this.state.data.phone}
+                                className="form-control-alternative"
+                                placeholder="+62xxxxxxxxxx"
+                                type="text"
+                                name="phone"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gender
+                              </label>
+                              <Input
+                                defaultValue={this.state.data.gender}
+                                className="form-control-alternative"
+                                placeholder="Perempuan"
+                                type="text"
+                                name="gender"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="my-4" />
+                      {/* Description */}
+                      <h6 className="heading-small text-muted mb-4">Gym Information</h6>
+                      <div className="pl-lg-4">
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gym Class
+                              </label>
+                              <Input
+                                defaultValue={this.state.gym_class.title}
+                                className="form-control-alternative"
+                                placeholder="Atletik"
+                                type="text"
+                                name="title"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Gym Type
+                              </label>
+                              <Input
+                                defaultValue={this.state.gym_class.type}
+                                className="form-control-alternative"
+                                placeholder="Personal"
+                                type="text"
+                                name="type"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Trainer Name
+                              </label>
+                              <Input
+                                defaultValue={this.state.gym_class.trainer_name}
+                                className="form-control-alternative"
+                                placeholder="Najib Gans"
+                                type="text"
+                                name="trainer_name"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time Type
+                              </label>
+                              <Input
+                                defaultValue={this.state.gym_class.time_type}
+                                className="form-control-alternative"
+                                placeholder="Weekends"
+                                type="text"
+                                name="time_type"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time Start
+                              </label>
+                              <Input
+                                defaultValue={this.state.gym_class.time_start}
+                                className="form-control-alternative"
+                                placeholder="09.00"
+                                type="text"
+                                name="time_start"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Time End
+                              </label>
+                              <Input
+                                defaultValue={JSON.stringify(this.state.gym_class.time_end)}
+                                className="form-control-alternative"
+                                placeholder="15.00"
+                                type="text"
+                                name="time_end"
+                                onChange={this.handleInputChange}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </div>
+                      <div className="mt-3"></div>
+                      <Button lg="6" color="primary" type="button" onClick={this.update}>Update</Button>   
+                      <Button lg="6" color="red" type="button" onClick={this.delete}>Delete</Button>                      
+                  </CardBody>
+                </Card>
               </Form>
-            </CardBody>
-          </Card>
-        </Col>
+            </Col>
+          </Row>
+        </Container>
       </>
     );
   }
