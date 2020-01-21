@@ -57,7 +57,7 @@ var routes = [
     path: "/detail",
     name: "User Detail",
     component: UserDetail,
-    layout: "/users"
+    layout: "/admin"
   }
 ];
 export default routes;
