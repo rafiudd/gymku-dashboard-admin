@@ -49,8 +49,8 @@ class Profile extends React.Component {
       type : '',
       trainer_name : '',
       time_type : '',
-      time_start : '',
-      time_end : ''
+      start_time : '',
+      end_time : ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -73,7 +73,7 @@ class Profile extends React.Component {
       email : this.state.email,
       fullname : this.state.fullname,
       password : this.state.password,
-      address : this.state.password,
+      address : this.state.address,
       phone : this.state.phone,
       gender : this.state.gender,
       gym_class : {
@@ -81,8 +81,8 @@ class Profile extends React.Component {
         type : this.state.type,
         trainer_name : this.state.trainer_name,
         time_type : this.state.time_type,
-        time_start : this.state.time_start,
-        time_end : this.state.time_end
+        start_time : this.state.start_time,
+        end_time : this.state.end_time
       }
     }
 
@@ -235,6 +235,7 @@ class Profile extends React.Component {
                               <Input
                                 className="form-control-alternative"
                                 rows="4"
+                                name="address"
                                 placeholder="Home Address"
                                 type="textarea"
                                 onChange={this.handleInputChange}
@@ -366,7 +367,7 @@ class Profile extends React.Component {
                                 className="form-control-alternative"
                                 placeholder="09.00"
                                 type="text"
-                                name="time_start"
+                                name="start_time"
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>
@@ -383,7 +384,7 @@ class Profile extends React.Component {
                                 className="form-control-alternative"
                                 placeholder="15.00"
                                 type="text"
-                                name="time_end"
+                                name="end_time"
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>

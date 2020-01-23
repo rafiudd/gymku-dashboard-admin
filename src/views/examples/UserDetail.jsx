@@ -82,8 +82,8 @@ class UserDetail extends React.Component {
         type : response.data.data.gym_class.type,
         trainer_name : response.data.data.gym_class.trainer_name,
         time_type : response.data.data.gym_class.time_type,
-        time_start : response.data.data.gym_class.time_start,
-        time_end : response.data.data.gym_class.time_end
+        time_start : response.data.data.gym_class.start_time,
+        time_end : response.data.data.gym_class.end_time
       }
       this.setState({ data : response.data.data });
       this.setState({ gym_class : model })
@@ -282,11 +282,12 @@ class UserDetail extends React.Component {
                                 Address
                               </label>
                               <Input
-                                defaultValue={JSON.stringify(this.state.data.address)}
+                                defaultValue={this.state.data.address}
                                 className="form-control-alternative"
                                 rows="4"
                                 placeholder="Home Address"
-                                type="textarea"
+                                name="address"
+                                type="text"
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>
@@ -437,7 +438,7 @@ class UserDetail extends React.Component {
                                 Time End
                               </label>
                               <Input
-                                defaultValue={JSON.stringify(this.state.gym_class.time_end)}
+                                defaultValue={this.state.gym_class.time_end}
                                 className="form-control-alternative"
                                 placeholder="15.00"
                                 type="text"
