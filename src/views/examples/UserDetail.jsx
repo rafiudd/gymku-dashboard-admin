@@ -62,12 +62,13 @@ class UserDetail extends React.Component {
   }
 
   handleInputChange = (event) => {
-    let key = event.target.name;
-    let value = event.target.value;
-    let model = {
-      [key] : value,
-    }
-    this.setState({ update : model });
+    // let key = event.target.name;
+    // let value = event.target.value;
+    // let model = {
+    //   [key] : value,
+    // }
+    // this.setState({[key] : value });
+    this.setState({ [event.target.name]: event.target.value });
     // console.log(this.state.update.username,['WOII'])
 
   }
@@ -94,8 +95,27 @@ class UserDetail extends React.Component {
         time_start : response.data.data.gym_class.start_time,
         time_end : response.data.data.gym_class.end_time
       }
-      this.setState({ data : response.data.data });
-      this.setState({ gym_class : model })
+      this.setState({ 
+        data : response.data.data,
+        username : response.data.data.username,
+        email: response.data.data.email,
+        fullname: response.data.data.fullname,
+        password: response.data.data.password,
+        address: response.data.data.address,
+        phone: response.data.data.phone,
+        gender: response.data.data.gender,
+        gym_class : model,
+        title : response.data.data.gym_class.title,
+        type : response.data.data.gym_class.type,
+        trainer_name : response.data.data.gym_class.trainer_name,
+        time_type : response.data.data.gym_class.time_type,
+        time_start : response.data.data.gym_class.start_time,
+        time_end : response.data.data.gym_class.end_time
+       })
+       console.log(this.state.data)
+       console.log(this.state.username)
+       console.log(this.state.time_end)
+
     })
   }
 
@@ -121,48 +141,48 @@ class UserDetail extends React.Component {
   }
 
   async update() {
-    // let token = window.localStorage.getItem('token');
-    // const baseUrl = "http://34.238.41.114:8081/api/users/update?id=";
-    // const headers = {
-    //   'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTIyYjY1NjEzMzkzMDEwNTNmZDg5YTkiLCJpYXQiOjE1ODAzNTgzNTl9.OmJdzI01ONvSSyiVvPuOS2mqm2sKTj2XUd-q6l8eOpo'
-    // }
+    let token = window.localStorage.getItem('token');
+    const baseUrl = "http://34.238.41.114:8081/api/users/update?id=";
+    const headers = {
+      'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTIyYjY1NjEzMzkzMDEwNTNmZDg5YTkiLCJpYXQiOjE1ODAzNTgzNTl9.OmJdzI01ONvSSyiVvPuOS2mqm2sKTj2XUd-q6l8eOpo'
+    }
 
-    // let getUrlNow = window.location.href;
-    // let userId = getUrlNow.slice(35,59)
-    // alert(baseUrl + userId)
+    let getUrlNow = window.location.href;
+    let userId = getUrlNow.slice(35,59)
+    alert(baseUrl + userId)
 
     let newModel = {
-      username : this.state.update,
-      email : this.state.update.email,
-      fullname : this.state.update.fullname,
-      password : this.state.update.password,
-      address : this.state.update.address,
-      phone : this.state.update.phone,
-      gender : this.state.update.gender,
+      username : this.state.username,
+      email : this.state.email,
+      fullname : this.state.fullname,
+      password : this.state.password,
+      address : this.state.address,
+      phone : this.state.phone,
+      gender : this.state.gender,
       gym_class : {
-        title : this.state.update.title,
-        type : this.state.update.type,
-        trainer_name : this.state.update.trainer_name,
-        time_type : this.state.update.time_type,
-        start_time : this.state.update.start_time,
-        end_time : this.state.update.end_time
+        title : this.state.title,
+        type : this.state.type,
+        trainer_name : this.state.trainer_name,
+        time_type : this.state.time_type,
+        start_time : this.state.time_start,
+        end_time : this.state.time_end
       }
     }
     console.log(newModel)
 
-    // try {
-    //   alert('sukses')
-    //   Axios.put(baseUrl + userId, {
-    //     headers : headers,
-    //     body : newModel
-    //   })
+    try {
+      alert('sukses')
+      Axios.put(baseUrl + userId, {
+        headers : headers,
+        body : newModel
+      })
   
-    //   alert('Sukses Register User');
-    //   // window.location.reload();
-    // } catch (error) {
-    //   alert(error.message)  
-    //   console.log(error,'hhhh')
-    // }
+      alert('Sukses Register User');
+      // window.location.reload();
+    } catch (error) {
+      alert(error.message)  
+      console.log(error,'hhhh')
+    }
   }
 
   render() {
