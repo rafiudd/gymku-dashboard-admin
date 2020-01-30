@@ -177,7 +177,6 @@ class UserDetail extends React.Component {
       })
 
       alert('Sukses Update User');
-      window.location.reload();
     } catch (error) {
       alert(error.message)  
     }
