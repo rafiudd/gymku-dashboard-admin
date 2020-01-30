@@ -107,15 +107,9 @@ class Profile extends React.Component {
       });
       alert('Sukses Register User');
       window.location.reload();
-
-      // console.log(query);
-      // alert(query);
-      // window.localStorage.setItem('query', query)
-      // return query
     } catch (error) {
       alert(error.message)  
-      // window.localStorage.setItem('error', error)
-      // return error
+
     }
     
   }

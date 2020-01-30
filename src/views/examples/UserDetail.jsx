@@ -39,18 +39,26 @@ class UserDetail extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data : [],
-      gym_class : {},
+      username : '',
+      email : '',
+      fullname : '',
+      password : '',
+      address : '',
+      phone : '',
+      gender : '',
       title : '',
       type : '',
       trainer_name : '',
       time_type : '',
-      time_start : '',
-      time_end : ''
+      start_time : '',
+      end_time : '',
+      update : [],
+      data : [],
+      gym_class : {}
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    // this.register = this.register.bind(this);
+    this.update = this.update.bind(this);
   }
 
   handleInputChange = (event) => {
@@ -59,8 +67,9 @@ class UserDetail extends React.Component {
     let model = {
       [key] : value,
     }
+    this.setState({ update : model });
+    // console.log(this.state.update.username,['WOII'])
 
-    this.setState(model)
   }
 
   async componentWillMount() {
@@ -88,7 +97,6 @@ class UserDetail extends React.Component {
       this.setState({ data : response.data.data });
       this.setState({ gym_class : model })
     })
-    console.log(this.state)
   }
 
   async delete () {
@@ -112,58 +120,50 @@ class UserDetail extends React.Component {
     })
   }
 
-  // async register() {
-  //   let newModel = {
-  //     username : this.state.username,
-  //     email : this.state.email,
-  //     fullname : this.state.fullname,
-  //     password : this.state.password,
-  //     address : this.state.password,
-  //     phone : this.state.phone,
-  //     gender : this.state.gender,
-  //     gym_class : {
-  //       title : this.state.title,
-  //       type : this.state.type,
-  //       trainer_name : this.state.trainer_name,
-  //       time_type : this.state.time_type,
-  //       time_start : this.state.time_start,
-  //       time_end : this.state.time_end
-  //     }
-  //   }
+  async update() {
+    // let token = window.localStorage.getItem('token');
+    // const baseUrl = "http://34.238.41.114:8081/api/users/update?id=";
+    // const headers = {
+    //   'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTIyYjY1NjEzMzkzMDEwNTNmZDg5YTkiLCJpYXQiOjE1ODAzNTgzNTl9.OmJdzI01ONvSSyiVvPuOS2mqm2sKTj2XUd-q6l8eOpo'
+    // }
 
-  //   // alert(JSON.stringify(newModel))
+    // let getUrlNow = window.location.href;
+    // let userId = getUrlNow.slice(35,59)
+    // alert(baseUrl + userId)
 
-  //   let token = window.localStorage.getItem('token');
-  //   const baseUrl = "http://34.238.41.114:8081/api/users/register";
-  //   const headers = {
-  //     'Authorization' : 'Bearer ' + token
-  //   }
+    let newModel = {
+      username : this.state.update,
+      email : this.state.update.email,
+      fullname : this.state.update.fullname,
+      password : this.state.update.password,
+      address : this.state.update.address,
+      phone : this.state.update.phone,
+      gender : this.state.update.gender,
+      gym_class : {
+        title : this.state.update.title,
+        type : this.state.update.type,
+        trainer_name : this.state.update.trainer_name,
+        time_type : this.state.update.time_type,
+        start_time : this.state.update.start_time,
+        end_time : this.state.update.end_time
+      }
+    }
+    console.log(newModel)
 
-  //   try {
-  //     alert('sukses')
-  //     let query = await fetch(baseUrl, {
-  //       method : 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept': 'application/json',
-  //         'Authorization' : 'Bearer ' + token
-  //       },
-  //       body: JSON.stringify(newModel)
-  //     });
-  //     alert('Sukses Register User');
-  //     window.location.reload();
-
-  //     // console.log(query);
-  //     // alert(query);
-  //     // window.localStorage.setItem('query', query)
-  //     // return query
-  //   } catch (error) {
-  //     alert(error.message)  
-  //     // window.localStorage.setItem('error', error)
-  //     // return error
-  //   }
-    
-  // }
+    // try {
+    //   alert('sukses')
+    //   Axios.put(baseUrl + userId, {
+    //     headers : headers,
+    //     body : newModel
+    //   })
+  
+    //   alert('Sukses Register User');
+    //   // window.location.reload();
+    // } catch (error) {
+    //   alert(error.message)  
+    //   console.log(error,'hhhh')
+    // }
+  }
 
   render() {
     return (
@@ -198,7 +198,7 @@ class UserDetail extends React.Component {
                                 Username
                               </label>
                               <Input
-                                defaultValue={JSON.stringify(this.state.data.username)}
+                                defaultValue={this.state.data.username}
                                 className="form-control-alternative"
                                 placeholder="Username"
                                 type="text"
