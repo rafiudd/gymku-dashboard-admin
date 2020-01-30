@@ -168,7 +168,7 @@ class UserDetail extends React.Component {
         end_time : this.state.time_end
       }
     }
-    console.log(newModel)
+    console.log(newModel);
 
     try {
       alert('sukses')
