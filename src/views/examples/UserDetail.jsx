@@ -144,7 +144,7 @@ class UserDetail extends React.Component {
     let token = window.localStorage.getItem('token');
     const baseUrl = "http://34.238.41.114:8081/api/users/update?id=";
     const headers = {
-      'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZTIyYjY1NjEzMzkzMDEwNTNmZDg5YTkiLCJpYXQiOjE1ODAzNTgzNTl9.OmJdzI01ONvSSyiVvPuOS2mqm2sKTj2XUd-q6l8eOpo'
+      'Authorization' : 'Bearer ' + token
     }
 
     let getUrlNow = window.location.href;
@@ -171,17 +171,15 @@ class UserDetail extends React.Component {
     console.log(newModel);
 
     try {
-      alert('sukses')
       Axios.put(baseUrl + userId, {
         headers : headers,
         body : newModel
       })
-  
-      alert('Sukses Register User');
-      // window.location.reload();
+
+      alert('Sukses Update User');
+      window.location.reload();
     } catch (error) {
       alert(error.message)  
-      console.log(error,'hhhh')
     }
   }
 
