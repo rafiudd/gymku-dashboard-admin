@@ -45,20 +45,40 @@ class Profile extends React.Component {
       address : '',
       phone : '',
       gender : ['Laki-Laki', 'Perempuan'],
-      title : '',
-      type : '',
-      trainer_name : '',
+      title : [
+        'body pum',
+        'hardcore',
+        'group suspension training body blast',
+        'group suspension training circuit',
+        'hardcore overload',
+        'body building',
+        'aqua fit',
+        'pro45',
+        'step it up',
+        'weight lifting',
+        'pro cycling',
+        'aerobic',
+        'yoga pilates',
+        'cardio fitness',
+      ],
+      type : ['Personal', 'Group'],
+      trainer_name : ['Najib Gans', 'Lutfika Cans'],
       time_type : '',
       start_time : '',
       end_time : '',
       dropdownOpen: false,
-      value : "Gender"
+      dropdownOpen2: false,
+      value : "Gender",
+      value2 : "Gym Class"
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.register = this.register.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
+
     this.select = this.select.bind(this);
+    this.select2 = this.select2.bind(this);
   }
 
   toggle() {
@@ -67,11 +87,25 @@ class Profile extends React.Component {
     }));
   }
 
+  toggle2() {
+    this.setState(prevState => ({
+        dropdownOpen2: !prevState.dropdownOpen2
+    }));
+  }
+
   select(event) {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
       value: event.target.innerText
     });
+  }
+
+  select2(event) {
+    this.setState({
+      dropdownOpen2: !this.state.dropdownOpen2,
+      value2: event.target.innerText
+    });
+    console.log(this.state.value2,['asdsd'])
   }
   
   handleInputChange = (event) => {
@@ -95,7 +129,7 @@ class Profile extends React.Component {
       phone : this.state.phone,
       gender : this.state.value,
       gym_class : {
-        title : this.state.title,
+        title : this.state.value2,
         type : this.state.type,
         trainer_name : this.state.trainer_name,
         time_type : this.state.time_type,
@@ -281,13 +315,6 @@ class Profile extends React.Component {
                               >
                                 Gender
                               </label>
-                              {/* <Input
-                                className="form-control-alternative"
-                                placeholder="Perempuan"
-                                type="text"
-                                name="gender"
-                                onChange={this.handleInputChange}
-                              />  */}
                               <br/>
                                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                   <DropdownToggle caret>
@@ -316,13 +343,17 @@ class Profile extends React.Component {
                               >
                                 Gym Class
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="Atletik"
-                                type="text"
-                                name="title"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpen2} toggle={this.toggle2}>
+                                  <DropdownToggle caret>
+                                    {this.state.value2}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.title.map( res => (
+                                      <DropdownItem onClick={this.select2} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
