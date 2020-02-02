@@ -329,7 +329,7 @@ class UserDetail extends React.Component {
                               />
                             </FormGroup>
                           </Col>
-                          <Col lg="4">
+                          <Col lg="4">                  
                             <FormGroup>
                               <label
                                 className="form-control-label"

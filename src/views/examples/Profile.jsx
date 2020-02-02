@@ -28,7 +28,7 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/Header.jsx";
@@ -44,26 +44,44 @@ class Profile extends React.Component {
       password : '',
       address : '',
       phone : '',
-      gender : '',
+      gender : ['Laki-Laki', 'Perempuan'],
       title : '',
       type : '',
       trainer_name : '',
       time_type : '',
       start_time : '',
-      end_time : ''
+      end_time : '',
+      dropdownOpen: false,
+      value : "Gender"
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.register = this.register.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.select = this.select.bind(this);
   }
 
+  toggle() {
+    this.setState(prevState => ({
+        dropdownOpen: !prevState.dropdownOpen
+    }));
+  }
+
+  select(event) {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+      value: event.target.innerText
+    });
+  }
+  
   handleInputChange = (event) => {
     let key = event.target.name;
     let value = event.target.value;
     let model = {
       [key] : value,
     }
-
+    console.log(this.state.value,['asd'])
+    console.log(model)
     this.setState(model)
   }
 
@@ -75,7 +93,7 @@ class Profile extends React.Component {
       password : this.state.password,
       address : this.state.address,
       phone : this.state.phone,
-      gender : this.state.gender,
+      gender : this.state.value,
       gym_class : {
         title : this.state.title,
         type : this.state.type,
@@ -257,19 +275,30 @@ class Profile extends React.Component {
                           </Col>
                           <Col lg="4">
                             <FormGroup>
-                              <label
+                               <label
                                 className="form-control-label"
                                 htmlFor="input-city"
                               >
                                 Gender
                               </label>
-                              <Input
+                              {/* <Input
                                 className="form-control-alternative"
                                 placeholder="Perempuan"
                                 type="text"
                                 name="gender"
                                 onChange={this.handleInputChange}
-                              />
+                              />  */}
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                  <DropdownToggle caret>
+                                    {this.state.value}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.gender.map( res => (
+                                      <DropdownItem onClick={this.select} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
