@@ -64,19 +64,23 @@ class Profile extends React.Component {
       type : ['Personal', 'Group'],
       trainer_name : ['Najib Gans', 'Lutfika Cans'],
       time_type : ['1 Hari', '3 Hari', '1 Minggu', '1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
-      start_time : '',
-      end_time : '',
+      start_time : ['09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','18.00','19.00','20.00'],
+      end_time : ['09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','18.00','19.00','20.00'],
       dropdownOpen: false,
       dropdownOpen2: false,
       dropdownOpenType: false,
       dropdownOpenTrainer: false,
       dropdownOpenTimeType: false,
+      dropdownOpenTimeStart : false,
+      dropdownOpenTimeEnd : false,
 
       value : "Gender",
       value2 : "Gym Class",
       valueType : "Gym Type",
       valueTrainer : "Trainer Name",
-      valueTimeType : "Long Time"
+      valueTimeType : "Long Time",
+      valueTimeStart : "Time Start",
+      valueTimeEnd : "Time End"
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -84,14 +88,18 @@ class Profile extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.toggle2 = this.toggle2.bind(this);
     this.toggleType = this.toggleType.bind(this);
-    this.toggleTrainer = this.toggleTrainer.bind(this)
-    this.toggleTimeType = this.toggleTimeType.bind(this)
+    this.toggleTrainer = this.toggleTrainer.bind(this);
+    this.toggleTimeType = this.toggleTimeType.bind(this);
+    this.toggleTimeStart = this.toggleTimeStart.bind(this);
+    this.toggleTimeEnd = this.toggleTimeEnd.bind(this);
 
     this.select = this.select.bind(this);
     this.select2 = this.select2.bind(this);
     this.selectType = this.selectType.bind(this);
-    this.selectTrainer = this.selectTrainer.bind(this)
-    this.selectTimeType = this.selectTimeType.bind(this)
+    this.selectTrainer = this.selectTrainer.bind(this);
+    this.selectTimeType = this.selectTimeType.bind(this);
+    this.selectTimeStart = this.selectTimeStart.bind(this);
+    this.selectTimeEnd = this.selectTimeEnd.bind(this);
   }
 
   toggle() {
@@ -121,6 +129,18 @@ class Profile extends React.Component {
   toggleTimeType() {
     this.setState(prevState => ({
         dropdownOpenTimeType: !prevState.dropdownOpenTimeType
+    }));
+  }
+
+  toggleTimeStart() {
+    this.setState(prevState => ({
+        dropdownOpenTimeStart: !prevState.dropdownOpenTimeStart
+    }));
+  }
+
+  toggleTimeEnd() {
+    this.setState(prevState => ({
+        dropdownOpenTimeEnd: !prevState.dropdownOpenTimeEnd
     }));
   }
 
@@ -163,6 +183,22 @@ class Profile extends React.Component {
     console.log(this.state.valueTimeType,['asdsd'])
   }
 
+  selectTimeStart(event) {
+    this.setState({
+      dropdownOpenTimeStart: !this.state.dropdownOpenTimeStart,
+      valueTimeStart: event.target.innerText
+    });
+    console.log(this.state.valueTimeStart,['asdsd'])
+  }
+
+  selectTimeEnd(event) {
+    this.setState({
+      dropdownOpenTimeEnd: !this.state.dropdownOpenTimeEnd,
+      valueTimeEnd: event.target.innerText
+    });
+    console.log(this.state.valueTimeEnd,['asdsd'])
+  }
+
   handleInputChange = (event) => {
     let key = event.target.name;
     let value = event.target.value;
@@ -188,8 +224,8 @@ class Profile extends React.Component {
         type : this.state.valueType,
         trainer_name : this.state.valueTrainer,
         time_type : this.state.valueTimeType,
-        start_time : this.state.start_time,
-        end_time : this.state.end_time
+        start_time : this.state.valueTimeStart,
+        end_time : this.state.valueTimeEnd
       }
     }
 
@@ -484,13 +520,17 @@ class Profile extends React.Component {
                               >
                                 Time Start
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="09.00"
-                                type="text"
-                                name="start_time"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpenTimeStart} toggle={this.toggleTimeStart}>
+                                  <DropdownToggle caret>
+                                    {this.state.valueTimeStart}  
+                                  </DropdownToggle>
+                                  <DropdownMenu onChange={this.handleInputChange} >
+                                    {this.state.start_time.map( res => (
+                                      <DropdownItem onClick={this.selectTimeStart} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
@@ -501,13 +541,17 @@ class Profile extends React.Component {
                               >
                                 Time End
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="15.00"
-                                type="text"
-                                name="end_time"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpenTimeEnd} toggle={this.toggleTimeEnd}>
+                                  <DropdownToggle caret>
+                                    {this.state.valueTimeEnd}  
+                                  </DropdownToggle>
+                                  <DropdownMenu onChange={this.handleInputChange} >
+                                    {this.state.end_time.map( res => (
+                                      <DropdownItem onClick={this.selectTimeEnd} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
