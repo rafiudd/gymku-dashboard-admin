@@ -72,13 +72,13 @@ class Profile extends React.Component {
       dropdownOpenTimeStart : false,
       dropdownOpenTimeEnd : false,
 
-      value : "Gender",
-      value2 : "Gym Class",
-      valueType : "Gym Type",
-      valueTrainer : "Trainer Name",
-      valueTimeType : "Long Time",
-      valueTimeStart : "Time Start",
-      valueTimeEnd : "Time End"
+      value : "Laki Laki",
+      value2 : "Body Pum",
+      valueType : "Personal",
+      valueTrainer : "Najib Gans",
+      valueTimeType : "1 Hari",
+      valueTimeStart : "08.00",
+      valueTimeEnd : "20.00"
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
