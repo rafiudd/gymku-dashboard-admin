@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -32,7 +31,6 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/Header.jsx";
-import Axios from "axios";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -233,9 +231,6 @@ class Profile extends React.Component {
 
     let token = window.localStorage.getItem('token');
     const baseUrl = "http://34.238.41.114:8081/api/users/register";
-    const headers = {
-      'Authorization' : 'Bearer ' + token
-    }
 
     try {
       alert('sukses')
@@ -250,6 +245,7 @@ class Profile extends React.Component {
       });
       alert('Sukses Register User');
       window.location.reload();
+      return query
     } catch (error) {
       alert(error.message)  
 

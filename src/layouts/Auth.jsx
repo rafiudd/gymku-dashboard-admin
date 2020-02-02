@@ -18,11 +18,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row } from "reactstrap";
 
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
-import AuthFooter from "components/Footers/AuthFooter.jsx";
 
 import routes from "routes.js";
 

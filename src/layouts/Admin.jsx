@@ -17,7 +17,6 @@
 */
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 
 // reactstrap components
 import { Container } from "reactstrap";
@@ -38,7 +37,7 @@ class Admin extends React.Component {
 
   async componentDidMount() {
     let isLogin = await window.localStorage.getItem('isLogin');
-    let token = await window.localStorage.getItem('token')
+    await window.localStorage.getItem('token')
     if(isLogin) {
       console.log('ada')
       this.setState({login:true})
