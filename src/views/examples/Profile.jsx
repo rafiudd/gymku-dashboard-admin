@@ -46,20 +46,20 @@ class Profile extends React.Component {
       phone : '',
       gender : ['Laki-Laki', 'Perempuan'],
       title : [
-        'body pum',
-        'hardcore',
-        'group suspension training body blast',
-        'group suspension training circuit',
-        'hardcore overload',
-        'body building',
-        'aqua fit',
-        'pro45',
-        'step it up',
-        'weight lifting',
-        'pro cycling',
-        'aerobic',
-        'yoga pilates',
-        'cardio fitness',
+        'Body Pum',
+        'Hardcore',
+        'Group Suspension training body blast',
+        'Group Suspension training circuit',
+        'Hardcore Overload',
+        'Body Building',
+        'Aqua Fit',
+        'Pro45',
+        'Step it up',
+        'Weight Lifting',
+        'Pro Cycling',
+        'Aerobic',
+        'Yoga Pilates',
+        'Cardio Fitness',
       ],
       type : ['Personal', 'Group'],
       trainer_name : ['Najib Gans', 'Lutfika Cans'],
@@ -68,17 +68,22 @@ class Profile extends React.Component {
       end_time : '',
       dropdownOpen: false,
       dropdownOpen2: false,
+      dropdownOpenType: false,
       value : "Gender",
-      value2 : "Gym Class"
+      value2 : "Gym Class",
+      valueType : "Gym Type",
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.register = this.register.bind(this);
     this.toggle = this.toggle.bind(this);
     this.toggle2 = this.toggle2.bind(this);
+    this.toggleType = this.toggleType.bind(this);
+
 
     this.select = this.select.bind(this);
     this.select2 = this.select2.bind(this);
+    this.selectType = this.selectType.bind(this);
   }
 
   toggle() {
@@ -90,6 +95,12 @@ class Profile extends React.Component {
   toggle2() {
     this.setState(prevState => ({
         dropdownOpen2: !prevState.dropdownOpen2
+    }));
+  }
+
+  toggleType() {
+    this.setState(prevState => ({
+        dropdownOpenType: !prevState.dropdownOpenType
     }));
   }
 
@@ -106,6 +117,14 @@ class Profile extends React.Component {
       value2: event.target.innerText
     });
     console.log(this.state.value2,['asdsd'])
+  }
+
+  selectType(event) {
+    this.setState({
+      dropdownOpenType: !this.state.dropdownOpenType,
+      valueType: event.target.innerText
+    });
+    console.log(this.state.valueType,['asdsd'])
   }
   
   handleInputChange = (event) => {
@@ -364,13 +383,17 @@ class Profile extends React.Component {
                               >
                                 Gym Type
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="Personal"
-                                type="text"
-                                name="type"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpenType} toggle={this.toggleType}>
+                                  <DropdownToggle caret>
+                                    {this.state.valueType}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.type.map( res => (
+                                      <DropdownItem onClick={this.selectType} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
