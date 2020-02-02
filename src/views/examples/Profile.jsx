@@ -63,15 +63,20 @@ class Profile extends React.Component {
       ],
       type : ['Personal', 'Group'],
       trainer_name : ['Najib Gans', 'Lutfika Cans'],
-      time_type : '',
+      time_type : ['1 Hari', '3 Hari', '1 Minggu', '1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
       start_time : '',
       end_time : '',
       dropdownOpen: false,
       dropdownOpen2: false,
       dropdownOpenType: false,
+      dropdownOpenTrainer: false,
+      dropdownOpenTimeType: false,
+
       value : "Gender",
       value2 : "Gym Class",
       valueType : "Gym Type",
+      valueTrainer : "Trainer Name",
+      valueTimeType : "Long Time"
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -79,11 +84,14 @@ class Profile extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.toggle2 = this.toggle2.bind(this);
     this.toggleType = this.toggleType.bind(this);
-
+    this.toggleTrainer = this.toggleTrainer.bind(this)
+    this.toggleTimeType = this.toggleTimeType.bind(this)
 
     this.select = this.select.bind(this);
     this.select2 = this.select2.bind(this);
     this.selectType = this.selectType.bind(this);
+    this.selectTrainer = this.selectTrainer.bind(this)
+    this.selectTimeType = this.selectTimeType.bind(this)
   }
 
   toggle() {
@@ -101,6 +109,18 @@ class Profile extends React.Component {
   toggleType() {
     this.setState(prevState => ({
         dropdownOpenType: !prevState.dropdownOpenType
+    }));
+  }
+
+  toggleTrainer() {
+    this.setState(prevState => ({
+        dropdownOpenTrainer: !prevState.dropdownOpenTrainer
+    }));
+  }
+
+  toggleTimeType() {
+    this.setState(prevState => ({
+        dropdownOpenTimeType: !prevState.dropdownOpenTimeType
     }));
   }
 
@@ -127,6 +147,22 @@ class Profile extends React.Component {
     console.log(this.state.valueType,['asdsd'])
   }
   
+  selectTrainer(event) {
+    this.setState({
+      dropdownOpenTrainer: !this.state.dropdownOpenTrainer,
+      valueTrainer: event.target.innerText
+    });
+    console.log(this.state.valueTrainer,['asdsd'])
+  }
+
+  selectTimeType(event) {
+    this.setState({
+      dropdownOpenTimeType: !this.state.dropdownOpenTimeType,
+      valueTimeType: event.target.innerText
+    });
+    console.log(this.state.valueTimeType,['asdsd'])
+  }
+
   handleInputChange = (event) => {
     let key = event.target.name;
     let value = event.target.value;
@@ -149,9 +185,9 @@ class Profile extends React.Component {
       gender : this.state.value,
       gym_class : {
         title : this.state.value2,
-        type : this.state.type,
-        trainer_name : this.state.trainer_name,
-        time_type : this.state.time_type,
+        type : this.state.valueType,
+        trainer_name : this.state.valueTrainer,
+        time_type : this.state.valueTimeType,
         start_time : this.state.start_time,
         end_time : this.state.end_time
       }
@@ -404,13 +440,17 @@ class Profile extends React.Component {
                               >
                                 Trainer Name
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="Najib Gans"
-                                type="text"
-                                name="trainer_name"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpenTrainer} toggle={this.toggleTrainer}>
+                                  <DropdownToggle caret>
+                                    {this.state.valueTrainer}  
+                                  </DropdownToggle>
+                                  <DropdownMenu onChange={this.handleInputChange} >
+                                    {this.state.trainer_name.map( res => (
+                                      <DropdownItem onClick={this.selectTrainer} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
@@ -423,13 +463,17 @@ class Profile extends React.Component {
                               >
                                 Time Type
                               </label>
-                              <Input
-                                className="form-control-alternative"
-                                placeholder="Weekends"
-                                type="text"
-                                name="time_type"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpenTimeType} toggle={this.toggleTimeType}>
+                                  <DropdownToggle caret>
+                                    {this.state.valueTimeType}  
+                                  </DropdownToggle>
+                                  <DropdownMenu onChange={this.handleInputChange} >
+                                    {this.state.time_type.map( res => (
+                                      <DropdownItem onClick={this.selectTimeType} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
