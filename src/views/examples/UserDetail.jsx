@@ -45,25 +45,65 @@ class UserDetail extends React.Component {
       password : '',
       address : '',
       phone : '',
+      timeTypeOption : ['1 Hari', '3 Hari', '1 Minggu', '1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
       genderOption : ['Laki-Laki', 'Perempuan'],
+      typeOption : ['Personal', 'Group'],
+      startTimeOption : ['09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','18.00','19.00','20.00'],
+      endTimeOption : ['09.00','10.00','11.00','12.00','13.00','14.00','15.00','16.00','17.00','18.00','19.00','20.00'],
+      titleOption : [
+        'Body Pum',
+        'Hardcore',
+        'Group Suspension training body blast',
+        'Group Suspension training circuit',
+        'Hardcore Overload',
+        'Body Building',
+        'Aqua Fit',
+        'Pro45',
+        'Step it up',
+        'Weight Lifting',
+        'Pro Cycling',
+        'Aerobic',
+        'Yoga Pilates',
+        'Cardio Fitness',
+      ],
+      trainerOption : ['Najib Gans', 'Lutfika Cans'],
       title : '',
       type : '',
       trainer_name : '',
       time_type : '',
-      start_time : '',
-      end_time : '',
+      time_start : '',
+      time_end : '',
       update : [],
       data : [],
       gym_class : {},
       value : "",
       dropdownOpen: false,
+      dropdownTitle : false,
+      dropdownOpenType: false,
+      dropdownOpenTrainer: false,
+      dropdownOpenTimeType: false,
+      dropdownOpenTimeStart : false,
+      dropdownOpenTimeEnd : false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.update = this.update.bind(this);
 
     this.toggle = this.toggle.bind(this);
+    this.toggleTitle = this.toggleTitle.bind(this);
+    this.toggleType = this.toggleType.bind(this);
+    this.toggleTrainer = this.toggleTrainer.bind(this);
+    this.toggleTimeType = this.toggleTimeType.bind(this);
+    this.toggleTimeStart = this.toggleTimeStart.bind(this);
+    this.toggleTimeEnd = this.toggleTimeEnd.bind(this);
+
     this.select = this.select.bind(this);
+    this.selectTitle = this.selectTitle.bind(this);
+    this.selectType = this.selectType.bind(this);
+    this.selectTrainer = this.selectTrainer.bind(this);
+    this.selectTimeType = this.selectTimeType.bind(this);
+    this.selectTimeStart = this.selectTimeStart.bind(this);
+    this.selectTimeEnd = this.selectTimeEnd.bind(this);
   }
 
   toggle() {
@@ -72,25 +112,100 @@ class UserDetail extends React.Component {
     }));
   }
 
+  toggleTitle() {
+    this.setState(prevState => ({
+        dropdownTitle: !prevState.dropdownTitle
+    }));
+  }
+  toggleType() {
+    this.setState(prevState => ({
+        dropdownOpenType: !prevState.dropdownOpenType
+    }));
+  }
+
+  toggleTrainer() {
+    this.setState(prevState => ({
+        dropdownOpenTrainer: !prevState.dropdownOpenTrainer
+    }));
+  }
+
+  toggleTimeType() {
+    this.setState(prevState => ({
+        dropdownOpenTimeType: !prevState.dropdownOpenTimeType
+    }));
+  }
+
+  toggleTimeStart() {
+    this.setState(prevState => ({
+        dropdownOpenTimeStart: !prevState.dropdownOpenTimeStart
+    }));
+  }
+
+  toggleTimeEnd() {
+    this.setState(prevState => ({
+        dropdownOpenTimeEnd: !prevState.dropdownOpenTimeEnd
+    }));
+  }
+
   select(event) {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
       gender: event.target.innerText
     });
-
     console.log(this.state.gender)
   }
 
-  handleInputChange = (event) => {
-    // let key = event.target.name;
-    // let value = event.target.value;
-    // let model = {
-    //   [key] : value,
-    // }
-    // this.setState({[key] : value });
-    this.setState({ [event.target.name]: event.target.value });
-    // console.log(this.state.update.username,['WOII'])
 
+  selectTitle(event) {
+    this.setState({
+      dropdownTitle: !this.state.dropdownTitle,
+      title: event.target.innerText
+    });
+    console.log(this.state.title)
+  }
+
+  selectType(event) {
+    this.setState({
+      dropdownOpenType: !this.state.dropdownOpenType,
+      type: event.target.innerText
+    });
+    console.log(this.state.type,['asdsd'])
+  }
+  
+  selectTrainer(event) {
+    this.setState({
+      dropdownOpenTrainer: !this.state.dropdownOpenTrainer,
+      trainer_name: event.target.innerText
+    });
+    console.log(this.state.trainer_name,['asdsd'])
+  }
+
+  selectTimeType(event) {
+    this.setState({
+      dropdownOpenTimeType: !this.state.dropdownOpenTimeType,
+      time_type: event.target.innerText
+    });
+    console.log(this.state.time_type,['asdsd'])
+  }
+
+  selectTimeStart(event) {
+    this.setState({
+      dropdownOpenTimeStart: !this.state.dropdownOpenTimeStart,
+      time_start: event.target.innerText
+    });
+    console.log(this.state.time_start,['asdsd'])
+  }
+
+  selectTimeEnd(event) {
+    this.setState({
+      dropdownOpenTimeEnd: !this.state.dropdownOpenTimeEnd,
+      time_end: event.target.innerText
+    });
+    console.log(this.state.time_end,['asdsd'])
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   async componentWillMount() {
@@ -132,9 +247,6 @@ class UserDetail extends React.Component {
         time_start : response.data.data.gym_class.start_time,
         time_end : response.data.data.gym_class.end_time
        })
-      //  console.log(this.state.data)
-      //  console.log(this.state.gender)
-      //  console.log(this.state.time_end)
 
     })
   }
@@ -360,7 +472,7 @@ class UserDetail extends React.Component {
                               <br/>
                                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                                   <DropdownToggle caret>
-                                    {this.state.data.gender}  
+                                    {this.state.gender}  
                                   </DropdownToggle>
                                   <DropdownMenu name="gender" onChange={this.handleInputChange} >
                                     {this.state.genderOption.map( res => (
@@ -385,14 +497,17 @@ class UserDetail extends React.Component {
                               >
                                 Gym Class
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.title}
-                                className="form-control-alternative"
-                                placeholder="Atletik"
-                                type="text"
-                                name="title"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownTitle} toggle={this.toggleTitle}>
+                                  <DropdownToggle caret>
+                                    {this.state.title}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.titleOption.map( res => (
+                                      <DropdownItem onClick={this.selectTitle} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
@@ -403,14 +518,17 @@ class UserDetail extends React.Component {
                               >
                                 Gym Type
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.type}
-                                className="form-control-alternative"
-                                placeholder="Personal"
-                                type="text"
-                                name="type"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownOpenType} toggle={this.toggleType}>
+                                  <DropdownToggle caret>
+                                    {this.state.type}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.typeOption.map( res => (
+                                      <DropdownItem onClick={this.selectType} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
@@ -421,14 +539,17 @@ class UserDetail extends React.Component {
                               >
                                 Trainer Name
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.trainer_name}
-                                className="form-control-alternative"
-                                placeholder="Najib Gans"
-                                type="text"
-                                name="trainer_name"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownOpenTrainer} toggle={this.toggleTrainer}>
+                                  <DropdownToggle caret>
+                                    {this.state.trainer_name}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.trainerOption.map( res => (
+                                      <DropdownItem onClick={this.selectTrainer} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
@@ -441,14 +562,17 @@ class UserDetail extends React.Component {
                               >
                                 Time Type
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.time_type}
-                                className="form-control-alternative"
-                                placeholder="Weekends"
-                                type="text"
-                                name="time_type"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownOpenTimeType} toggle={this.toggleTimeType}>
+                                  <DropdownToggle caret>
+                                    {this.state.time_type}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.timeTypeOption.map( res => (
+                                      <DropdownItem onClick={this.selectTimeType} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
@@ -459,14 +583,17 @@ class UserDetail extends React.Component {
                               >
                                 Time Start
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.time_start}
-                                className="form-control-alternative"
-                                placeholder="09.00"
-                                type="text"
-                                name="time_start"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownOpenTimeStart} toggle={this.toggleTimeStart}>
+                                  <DropdownToggle caret>
+                                    {this.state.time_start}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.startTimeOption.map( res => (
+                                      <DropdownItem onClick={this.selectTimeStart} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                           <Col lg="4">
@@ -477,14 +604,17 @@ class UserDetail extends React.Component {
                               >
                                 Time End
                               </label>
-                              <Input
-                                defaultValue={this.state.gym_class.time_end}
-                                className="form-control-alternative"
-                                placeholder="15.00"
-                                type="text"
-                                name="time_end"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                                <Dropdown isOpen={this.state.dropdownOpenTimeEnd} toggle={this.toggleTimeEnd}>
+                                  <DropdownToggle caret>
+                                    {this.state.time_end}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.endTimeOption.map( res => (
+                                      <DropdownItem onClick={this.selectTimeEnd} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
