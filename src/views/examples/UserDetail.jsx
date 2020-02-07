@@ -29,7 +29,7 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/Header.jsx";
@@ -45,7 +45,7 @@ class UserDetail extends React.Component {
       password : '',
       address : '',
       phone : '',
-      gender : '',
+      genderOption : ['Laki-Laki', 'Perempuan'],
       title : '',
       type : '',
       trainer_name : '',
@@ -54,11 +54,31 @@ class UserDetail extends React.Component {
       end_time : '',
       update : [],
       data : [],
-      gym_class : {}
+      gym_class : {},
+      value : "",
+      dropdownOpen: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.update = this.update.bind(this);
+
+    this.toggle = this.toggle.bind(this);
+    this.select = this.select.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+        dropdownOpen: !prevState.dropdownOpen
+    }));
+  }
+
+  select(event) {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+      gender: event.target.innerText
+    });
+
+    console.log(this.state.gender)
   }
 
   handleInputChange = (event) => {
@@ -112,9 +132,9 @@ class UserDetail extends React.Component {
         time_start : response.data.data.gym_class.start_time,
         time_end : response.data.data.gym_class.end_time
        })
-       console.log(this.state.data)
-       console.log(this.state.username)
-       console.log(this.state.time_end)
+      //  console.log(this.state.data)
+      //  console.log(this.state.gender)
+      //  console.log(this.state.time_end)
 
     })
   }
@@ -337,14 +357,17 @@ class UserDetail extends React.Component {
                               >
                                 Gender
                               </label>
-                              <Input
-                                defaultValue={this.state.data.gender}
-                                className="form-control-alternative"
-                                placeholder="Perempuan"
-                                type="text"
-                                name="gender"
-                                onChange={this.handleInputChange}
-                              />
+                              <br/>
+                               <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                  <DropdownToggle caret>
+                                    {this.state.data.gender}  
+                                  </DropdownToggle>
+                                  <DropdownMenu name="gender" onChange={this.handleInputChange} >
+                                    {this.state.genderOption.map( res => (
+                                      <DropdownItem onClick={this.select} >{res}</DropdownItem>                                      
+                                    ))}
+                                  </DropdownMenu>
+                                </Dropdown>
                             </FormGroup>
                           </Col>
                         </Row>
