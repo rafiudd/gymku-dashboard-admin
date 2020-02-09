@@ -24,6 +24,7 @@
   },
   "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
   "scripts": {
+    "production" : "PORT=80 react-scripts start",
     "start": "PORT=8082 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
