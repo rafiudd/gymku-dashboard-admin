@@ -73,6 +73,7 @@ class UserDetail extends React.Component {
       time_type : '',
       time_start : '',
       time_end : '',
+      price : '',
       update : [],
       data : [],
       gym_class : {},
@@ -245,9 +246,9 @@ class UserDetail extends React.Component {
         trainer_name : response.data.data.gym_class.trainer_name,
         time_type : response.data.data.gym_class.time_type,
         time_start : response.data.data.gym_class.start_time,
-        time_end : response.data.data.gym_class.end_time
+        time_end : response.data.data.gym_class.end_time,
+        price : response.data.data.price
        })
-
     })
   }
 
@@ -312,6 +313,13 @@ class UserDetail extends React.Component {
     } catch (error) {
       alert(error.message)  
     }
+  }
+
+  convertToRupiah(angka) {
+    var rupiah = '';		
+    var angkarev = angka.toString().split('').reverse().join('');
+    for(var i = 0; i < angkarev.length; i++) if(i%3 == 0) rupiah += angkarev.substr(i,3)+'.';
+    return 'Rp. '+rupiah.split('',rupiah.length-1).reverse().join('');
   }
 
   render() {
@@ -615,6 +623,25 @@ class UserDetail extends React.Component {
                                     ))}
                                   </DropdownMenu>
                                 </Dropdown>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg="4">
+                            <FormGroup>
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-city"
+                              >
+                                Price
+                              </label>
+                              <Input
+                                className="form-control-alternative disabled"
+                                placeholder={this.convertToRupiah(this.state.price)}
+                                type="text"
+                                name="price"
+                                disabled="true"
+                              />
                             </FormGroup>
                           </Col>
                         </Row>
