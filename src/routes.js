@@ -38,7 +38,7 @@ var routes = [
   },
   {
     path: "/create",
-    name: "Create User",
+    name: "Register User",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/admin"
