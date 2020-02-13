@@ -37,8 +37,14 @@ import {
 } from "reactstrap";
 
 class AdminNavbar extends React.Component {
-  constuctor() {
+  constructor(props) {
+    super(props)
+
+    // this.state = {
+    //   value : ""
+    // }
     this.routeChange = this.routeChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   async componentDidMount() {
@@ -49,6 +55,11 @@ class AdminNavbar extends React.Component {
   routeChange() {
     let path = `/auth/login`;
     this.props.history.push(path);
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state)
   }
 
   render() {
@@ -70,7 +81,12 @@ class AdminNavbar extends React.Component {
                       <i className="fas fa-search" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Search" type="text" />
+                  <Input 
+                    name = "search"
+                    placeholder="Search" 
+                    type="text" 
+                    onChange={this.handleInputChange}                  
+                  />
                 </InputGroup>
               </FormGroup>
             </Form>
@@ -95,23 +111,6 @@ class AdminNavbar extends React.Component {
                   <DropdownItem className="noti-title" header tag="div">
                     <h6 className="text-overflow m-0">Welcome!</h6>
                   </DropdownItem>
-                  {/* <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-single-02" />
-                    <span>My profile</span>
-                  </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-settings-gear-65" />
-                    <span>Settings</span>
-                  </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-calendar-grid-58" />
-                    <span>Activity</span>
-                  </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-support-16" />
-                    <span>Support</span>
-                  </DropdownItem> */}
-                  {/* <DropdownItem divider /> */}
                   <DropdownItem to="/auth/login" tag={Link}>
                     <i className="ni ni-user-run" />
                       <span>Logout</span>

@@ -42,6 +42,20 @@ class Tables extends React.Component {
 
   }
 
+  async search() {
+    let token = window.localStorage.getItem('token');
+    let baseUrl = "http://34.238.41.114:8081/api/users/search?fullname="
+
+    await Axios.get(baseUrl + this.state.search, {
+      headers : {
+        Authorization : 'Bearer ' + token
+      }
+    }).then(response => {
+      console.log(response)
+    })
+
+  }
+
   async componentDidMount() {
     let token = window.localStorage.getItem('token');
 
@@ -55,7 +69,6 @@ class Tables extends React.Component {
       }
       this.setState({list : response.data.data})
     });
-    
   }
 
   check() {
