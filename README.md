@@ -1,5 +1,5 @@
 
-# Gymku Landing Page
+# Gymku Dashboard
 Gymku is a dashboard for manage person in gym, this repository is landing page for ads
 
 ### Live Website
